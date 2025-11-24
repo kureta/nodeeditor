@@ -119,6 +119,14 @@ For building a static lib use:
 
     cmake .. -BUILD_SHARED_LIBS=off
 
+For building Python bindings (requires PySide6/Shiboken6):
+
+::
+
+    cmake .. -DBUILD_PYTHON_BINDINGS=ON -DUSE_QT6=ON -DBUILD_SHARED_LIBS=ON
+
+See ``bindings/README.md`` for detailed Python binding documentation.
+
 Linux
 -----
 
@@ -154,6 +162,22 @@ With Cmake using `vcpkg`
 ::
 
    -DCMAKE_TOOLCHAIN_FILE=<vcpkg_dir>/scripts/buildsystems/scripts/buildsystems/vcpkg.cmake
+
+
+Python Bindings
+---------------
+
+Python bindings using PySide6 are available. To build and install:
+
+::
+
+   pip install PySide6 shiboken6 shiboken6-generator
+   mkdir build && cd build
+   cmake .. -DBUILD_PYTHON_BINDINGS=ON -DUSE_QT6=ON -DBUILD_SHARED_LIBS=ON
+   cmake --build .
+   cmake --install .
+
+See the ``bindings/`` directory for detailed documentation and examples.
 
 
 Testing
@@ -192,9 +216,9 @@ For detailed testing documentation, see the `Testing Guide <https://qtnodes.read
 Help Needed
 ===========
 
-#. Python wrappring using PySide.
+#. ✓ Python wrapping using PySide - **Initial implementation completed!** See ``bindings/`` directory.
 #. QML frontend.
-#. Wirting a ClangFormat config.
+#. Writing a ClangFormat config.
 
 Any suggestions are welcome!
 

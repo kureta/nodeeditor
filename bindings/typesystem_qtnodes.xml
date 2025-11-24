@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typesystem package="QtNodes">
+    <!-- Primitive types -->
+    <primitive-type name="NodeId"/>
+    <primitive-type name="PortIndex"/>
+    <primitive-type name="PortCount"/>
+
+    <!-- Qt types -->
+    <load-typesystem name="QtCore/typesystem_core.xml" generate="no"/>
+    <load-typesystem name="QtGui/typesystem_gui.xml" generate="no"/>
+    <load-typesystem name="QtWidgets/typesystem_widgets.xml" generate="no"/>
+
+    <!-- Enumerations -->
+    <namespace-type name="QtNodes">
+        <enum-type name="NodeRole"/>
+        <enum-type name="NodeFlag" flags="NodeFlags"/>
+        <enum-type name="PortRole"/>
+        <enum-type name="ConnectionPolicy"/>
+        <enum-type name="PortType"/>
+
+        <!-- Structs -->
+        <value-type name="ConnectionId"/>
+        <value-type name="NodeValidationState">
+            <enum-type name="State"/>
+        </value-type>
+        <value-type name="NodeDataType"/>
+
+        <!-- Abstract base classes -->
+        <object-type name="NodeData"/>
+        <object-type name="Serializable"/>
+        <object-type name="AbstractGraphModel"/>
+        <object-type name="AbstractNodeGeometry"/>
+        <object-type name="AbstractNodePainter"/>
+        <object-type name="AbstractConnectionPainter"/>
+
+        <!-- Main model classes -->
+        <object-type name="NodeDelegateModel"/>
+        <object-type name="NodeDelegateModelRegistry"/>
+        <object-type name="DataFlowGraphModel"/>
+
+        <!-- Graphics scene and view classes -->
+        <object-type name="BasicGraphicsScene"/>
+        <object-type name="DataFlowGraphicsScene"/>
+        <object-type name="GraphicsView"/>
+        <object-type name="NodeGraphicsObject"/>
+        <object-type name="ConnectionGraphicsObject"/>
+
+        <!-- Style classes -->
+        <value-type name="NodeStyle"/>
+        <value-type name="ConnectionStyle"/>
+        <value-type name="GraphicsViewStyle"/>
+        <object-type name="StyleCollection"/>
+
+        <!-- Geometry classes -->
+        <object-type name="DefaultHorizontalNodeGeometry"/>
+        <object-type name="DefaultVerticalNodeGeometry"/>
+
+        <!-- Painter classes -->
+        <object-type name="DefaultNodePainter"/>
+        <object-type name="DefaultConnectionPainter"/>
+
+        <!-- State classes -->
+        <object-type name="NodeState"/>
+        <object-type name="ConnectionState"/>
+
+        <!-- Undo commands -->
+        <object-type name="DeleteCommand"/>
+        <object-type name="CreateCommand"/>
+        <object-type name="ConnectCommand"/>
+        <object-type name="DisconnectCommand"/>
+        <object-type name="MoveCommand"/>
+
+        <!-- Utility classes -->
+        <object-type name="NodeConnectionInteraction"/>
+    </namespace-type>
+</typesystem>

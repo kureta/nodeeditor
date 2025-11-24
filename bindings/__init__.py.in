@@ -1,0 +1,17 @@
+"""
+QtNodes Python Bindings
+
+This module provides Python bindings for the QtNodes library using PySide6.
+
+QtNodes is a Qt-based library for creating node-based editors and dataflow applications.
+"""
+
+__version__ = "@PROJECT_VERSION@"
+
+try:
+    from .QtNodes import *
+except ImportError as e:
+    import sys
+    print(f"Error importing QtNodes module: {e}", file=sys.stderr)
+    print("Make sure the QtNodes shared library is in your library path.", file=sys.stderr)
+    raise
