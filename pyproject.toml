@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "cmake>=3.18", "PySide6>=6.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "QtNodes"
+version = "3.0.0"
+description = "Python bindings for QtNodes library - A Qt-based node editor"
+readme = "bindings/README.md"
+requires-python = ">=3.8"
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "QtNodes Contributors"},
+]
+keywords = ["qt", "nodes", "graph", "editor", "dataflow", "pyside6"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+dependencies = [
+    "PySide6>=6.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/paceholder/nodeeditor"
+Documentation = "https://qtnodes.readthedocs.io/"
+Repository = "https://github.com/paceholder/nodeeditor"
+"Bug Tracker" = "https://github.com/paceholder/nodeeditor/issues"
