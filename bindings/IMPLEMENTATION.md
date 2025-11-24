@@ -180,6 +180,22 @@ view.show()
 app.exec()
 ```
 
+### Full Calculator Example
+
+A complete calculator application is available in `bindings/examples/calculator.py`. It demonstrates:
+- Custom DecimalData type
+- Number source nodes with editable inputs
+- Math operation nodes (addition, subtraction, multiplication, division)
+- Display nodes showing results
+- Real-time data flow and computation
+
+Run it with:
+```bash
+python3 bindings/examples/calculator.py
+```
+
+See `bindings/examples/README.md` for detailed documentation and screenshots.
+
 ## Technical Details
 
 ### Binding Generation Process

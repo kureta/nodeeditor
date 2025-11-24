@@ -108,6 +108,22 @@ view.show()
 sys.exit(app.exec())
 ```
 
+## Examples
+
+See the `examples/` directory for complete working examples:
+
+- **calculator.py** - Full-featured calculator with math operations
+  - Demonstrates custom data types, node models, and data flow
+  - Includes number sources, operators (add, subtract, multiply, divide), and displays
+  - Shows how to create interactive nodes with embedded widgets
+
+Run the calculator example:
+```bash
+python3 bindings/examples/calculator.py
+```
+
+See [examples/README.md](examples/README.md) for detailed documentation.
+
 ## File Structure
 
 - `bindings.h` - Main header file that includes all public QtNodes headers
