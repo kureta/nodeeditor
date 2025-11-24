@@ -22,6 +22,7 @@ if(QT_VERSION_MAJOR EQUAL 6)
     set(SHIBOKEN_INCLUDE_DIR ${Shiboken6_INCLUDE_DIRS})
     set(SHIBOKEN_LIBRARY ${Shiboken6_LIBRARIES})
     set(SHIBOKEN_GENERATOR Shiboken6::shiboken6)
+    set(PYSIDE_TYPESYSTEMS ${PySide6_TYPESYSTEMS})
     set(PYTHON_MODULE_NAME "QtNodes")
 else()
     find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
@@ -33,8 +34,30 @@ else()
     set(SHIBOKEN_INCLUDE_DIR ${Shiboken2_INCLUDE_DIRS})
     set(SHIBOKEN_LIBRARY ${Shiboken2_LIBRARIES})
     set(SHIBOKEN_GENERATOR Shiboken2::shiboken2)
+    set(PYSIDE_TYPESYSTEMS ${PySide2_TYPESYSTEMS})
     set(PYTHON_MODULE_NAME "QtNodes")
 endif()
+
+# Fallback for PYSIDE_TYPESYSTEMS if not set by find_package
+if(NOT PYSIDE_TYPESYSTEMS)
+    # Try to get it from shiboken module
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} -c "import PySide6; import os; print(os.path.join(os.path.dirname(PySide6.__file__), 'typesystems'))"
+        OUTPUT_VARIABLE PYSIDE_TYPESYSTEMS
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_QUIET
+    )
+    if(NOT PYSIDE_TYPESYSTEMS OR NOT EXISTS "${PYSIDE_TYPESYSTEMS}")
+        execute_process(
+            COMMAND ${Python3_EXECUTABLE} -c "import PySide2; import os; print(os.path.join(os.path.dirname(PySide2.__file__), 'typesystems'))"
+            OUTPUT_VARIABLE PYSIDE_TYPESYSTEMS
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            ERROR_QUIET
+        )
+    endif()
+endif()
+
+message(STATUS "PySide typesystems directory: ${PYSIDE_TYPESYSTEMS}")
 
 # Set up paths
 set(WRAPPED_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/bindings.h)
