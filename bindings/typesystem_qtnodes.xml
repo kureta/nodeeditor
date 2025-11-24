@@ -64,11 +64,13 @@
         <object-type name="ConnectionState"/>
 
         <!-- Undo commands -->
-        <object-type name="DeleteCommand"/>
         <object-type name="CreateCommand"/>
+        <object-type name="DeleteCommand"/>
+        <object-type name="CopyCommand"/>
+        <object-type name="PasteCommand"/>
         <object-type name="ConnectCommand"/>
         <object-type name="DisconnectCommand"/>
-        <object-type name="MoveCommand"/>
+        <object-type name="MoveNodeCommand"/>
 
         <!-- Utility classes -->
         <object-type name="NodeConnectionInteraction"/>
