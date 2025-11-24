@@ -61,13 +61,22 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
 
 
+# Read long description from file
+def read_long_description():
+    try:
+        with open('bindings/README.md', 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        return ''
+
+
 setup(
     name='QtNodes',
     version='3.0.0',
     author='QtNodes Contributors',
     author_email='',
     description='Python bindings for QtNodes library',
-    long_description=open('bindings/README.md').read(),
+    long_description=read_long_description(),
     long_description_content_type='text/markdown',
     url='https://github.com/paceholder/nodeeditor',
     license='BSD-3-Clause',

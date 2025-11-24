@@ -40,21 +40,21 @@ endif()
 
 # Fallback for PYSIDE_TYPESYSTEMS if not set by find_package
 if(NOT PYSIDE_TYPESYSTEMS)
-    # Try to get it from shiboken module
-    execute_process(
-        COMMAND ${Python3_EXECUTABLE} -c "import PySide6; import os; print(os.path.join(os.path.dirname(PySide6.__file__), 'typesystems'))"
-        OUTPUT_VARIABLE PYSIDE_TYPESYSTEMS
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_QUIET
-    )
-    if(NOT PYSIDE_TYPESYSTEMS OR NOT EXISTS "${PYSIDE_TYPESYSTEMS}")
+    # Try to get it from PySide modules
+    set(_pyside_modules "PySide6" "PySide2")
+    foreach(_module ${_pyside_modules})
         execute_process(
-            COMMAND ${Python3_EXECUTABLE} -c "import PySide2; import os; print(os.path.join(os.path.dirname(PySide2.__file__), 'typesystems'))"
-            OUTPUT_VARIABLE PYSIDE_TYPESYSTEMS
+            COMMAND ${Python3_EXECUTABLE} -c "import ${_module}; import os; print(os.path.join(os.path.dirname(${_module}.__file__), 'typesystems'))"
+            OUTPUT_VARIABLE _typesystems_path
             OUTPUT_STRIP_TRAILING_WHITESPACE
             ERROR_QUIET
+            RESULT_VARIABLE _result
         )
-    endif()
+        if(_result EQUAL 0 AND EXISTS "${_typesystems_path}")
+            set(PYSIDE_TYPESYSTEMS "${_typesystems_path}")
+            break()
+        endif()
+    endforeach()
 endif()
 
 message(STATUS "PySide typesystems directory: ${PYSIDE_TYPESYSTEMS}")
@@ -129,8 +129,29 @@ add_library(QtNodes_python MODULE
 set_target_properties(QtNodes_python PROPERTIES
     OUTPUT_NAME "${PYTHON_MODULE_NAME}"
     PREFIX ""
-    SUFFIX "${Python3_SOABI}.so"
 )
+
+# Set platform-specific suffix for the Python module
+if(WIN32)
+    set_target_properties(QtNodes_python PROPERTIES
+        SUFFIX ".pyd"
+    )
+elseif(APPLE)
+    set_target_properties(QtNodes_python PROPERTIES
+        SUFFIX ".so"
+    )
+else()
+    # Linux and other Unix-like systems
+    if(Python3_SOABI)
+        set_target_properties(QtNodes_python PROPERTIES
+            SUFFIX ".${Python3_SOABI}.so"
+        )
+    else()
+        set_target_properties(QtNodes_python PROPERTIES
+            SUFFIX ".so"
+        )
+    endif()
+endif()
 
 # Include directories for the module
 target_include_directories(QtNodes_python PRIVATE
